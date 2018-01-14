@@ -56,7 +56,18 @@ class ParentElement(val parent: Element) : VizContext,
     }
 
     override fun applyStyleSheet(styleSheet: StyleSheet) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val style = document.createElement("style")
+        var svg = parent
+        while (svg.localName != "svg"){
+            svg = svg.parentElement!!
+        }
+        
+        if ( svg.firstChild != null){
+            svg.insertBefore(style, svg.firstChild!!)
+        } else {
+            svg.appendChild(style)
+        }
+        style.textContent = styleSheet.render()
     }
 
     override fun setStyle(style: String) {

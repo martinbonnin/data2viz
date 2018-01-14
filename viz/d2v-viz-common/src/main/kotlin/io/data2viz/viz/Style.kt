@@ -24,14 +24,26 @@ class StyleSheet {
         val textRule = CssText().apply(init)
         rules.add(textRule)
     }
-
     fun render(): String = """
+        
+        text {
+            font-family: sans-serif;
+            font-size: 24px;
+        }
+        
+        Text {
+            -fx-font-size: 32px;
+            -fx-font-family: sans-serif;
+            -fx-font-style: normal ;
+            
+        }
+        
         .root {
-    -fx-font-size: 24px;
-    -fx-font-family: "serif";
-    -fx-font-style: italic ;
-    -fx-base: rgb(132, 145, 47);
-    -fx-background: rgb(225, 228, 203);
+            -fx-font-size: 24px;
+            -fx-font-family: serif;
+            -fx-font-style: italic ;
+            -fx-base: rgb(132, 145, 47);
+            -fx-background: rgb(225, 228, 203);
         }
         """
 }
