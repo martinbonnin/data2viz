@@ -22,6 +22,9 @@ typealias jxShape = javafx.scene.shape.Shape
  * Bootstrap a VizContext in JavaFx environment
  */
 fun Group.viz(init: VizContext.() -> Unit): VizContext {
+
+    registerURLStreamHandlerFactory()
+
     val vizContext = ParentElement(this)
     init(vizContext)
     return vizContext
@@ -44,6 +47,17 @@ class ParentElement(val parent: Group) : VizContext,
         parent.style = style
     }
 
+    override fun applyStyleSheet(styleSheet: StyleSheet) {
+        parent.sceneProperty().addListener { _, old, new ->
+            applyStylesheet(new, styleSheet)
+        }
+    }
+
+    override fun style(init: Style.() -> Unit) {
+        val style = StyleJfx()
+        style.init()
+        setStyle(style.sb.toString())
+    }
 
     override fun circle(init: CircleVizItem.() -> Unit): CircleVizItem {
         val circle = Circle()

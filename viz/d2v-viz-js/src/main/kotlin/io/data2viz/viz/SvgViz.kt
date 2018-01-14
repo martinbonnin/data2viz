@@ -55,8 +55,16 @@ class ParentElement(val parent: Element) : VizContext,
         return item
     }
 
+    override fun applyStyleSheet(styleSheet: StyleSheet) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun setStyle(style: String) {
         parent.setAttribute("style", style)
+    }
+
+    override fun style(init: Style.() -> Unit) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun circle(init: CircleVizItem.() -> Unit): CircleVizItem {

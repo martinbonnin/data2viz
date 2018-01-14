@@ -1,17 +1,29 @@
 package io.data2viz.viz
 
 import io.data2viz.color.colors
+import kotlin.reflect.KProperty
 
 data class Domain(val val1: Double, val val2: Double)
 
+class CommonVizConfiguration {
+    val titleClass:CssClass by cssClass()
 
-fun VizContext.commonViz(data: List<Domain>) {
+}
 
-    
-    setStyle("-fx-font:20px 'sans-serif'; text-anchor:'middle'")
+val defaultStyleSheet = styleSheet {
+    text {
+        fontSize = 12.px
+        fontFamily = "sans-serif"
+        
+        
+    }
+}
+
+fun VizContext.commonViz(data: List<Domain>, styleSheet: StyleSheet = defaultStyleSheet) {
+
+    applyStyleSheet(styleSheet)
     
     text {
-//        setStyle("-fx-font:20px 'sans-serif'; text-anchor:'middle'")
         textContent = "This a common presentation"
         y = 20.0
         x = 20.0
@@ -95,3 +107,23 @@ fun VizContext.commonViz(data: List<Domain>) {
         }
     }
 }
+
+
+
+fun cssClass() = CssClassDelegate()
+
+data class CssClass(val name:String)
+
+class CssClassDelegate{
+
+    companion object {
+        private val classes:MutableMap<Any, MutableMap<String,CssClass>> = mutableMapOf()
+    }
+
+    operator fun getValue(owner: Any, property: KProperty<*>): CssClass {
+        val ownerClasses = classes.getOrPut(owner, { mutableMapOf()})
+        return ownerClasses.getOrPut(property.name, { CssClass(property.name)})
+    }
+
+}
+

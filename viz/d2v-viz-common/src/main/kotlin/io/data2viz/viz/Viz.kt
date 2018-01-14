@@ -6,7 +6,9 @@ import io.data2viz.path.PathAdapter
 /**
  * Common interface to bootstrap visualization into different platform contexts.
  */
-interface VizContext : ParentItem
+interface VizContext : ParentItem {
+    fun applyStyleSheet(styleSheet: StyleSheet)
+}
 
 interface VizItem
 
@@ -19,6 +21,7 @@ interface ParentItem: Transformable {
     fun text(init: TextVizItem.() -> Unit): TextVizItem
     fun path(init: PathVizItem.() -> Unit): PathVizItem
     fun setStyle(style:String)
+    fun style(init: Style.() -> Unit)
 }
 
 /**
