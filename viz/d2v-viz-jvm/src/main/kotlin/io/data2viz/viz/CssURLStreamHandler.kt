@@ -24,6 +24,7 @@ class CssURLStreamHandler : URLStreamHandler() {
         override fun getInputStream(): InputStream {
             val stylesheet = Class.forName(url.host).newInstance() as StyleSheet
             val rendered = stylesheet.render()
+            println(rendered)
             return rendered.byteInputStream(StandardCharsets.UTF_8)
         }
     }

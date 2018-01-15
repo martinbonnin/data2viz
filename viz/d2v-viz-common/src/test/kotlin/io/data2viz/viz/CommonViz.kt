@@ -11,12 +11,6 @@ class CommonVizConfiguration {
 }
 
 val defaultStyleSheet = styleSheet {
-    text {
-        fontSize = 12.px
-        fontFamily = "sans-serif"
-        
-        
-    }
 }
 
 fun VizContext.commonViz(data: List<Domain>, styleSheet: StyleSheet = defaultStyleSheet) {
