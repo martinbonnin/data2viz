@@ -10,12 +10,10 @@ class CommonVizConfiguration {
 
 }
 
-val defaultStyleSheet = styleSheet {
-}
 
-fun VizContext.commonViz(data: List<Domain>, styleSheet: StyleSheet = defaultStyleSheet) {
+fun VizContext.commonViz(data: List<Domain>, styleSheet: StyleSheet? = null) {
 
-    applyStyleSheet(styleSheet)
+    styleSheet?.let { applyStyleSheet(it) }
     
     text {
         textContent = "This a common presentation"

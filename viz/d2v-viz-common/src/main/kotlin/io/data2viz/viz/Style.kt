@@ -6,16 +6,18 @@ interface Style {
 }
 
 enum class FontStyle {
-    NORMAL, ITALIC, OBLIQUE
+    NORMAL, ITALIC, OBLIQUE;
+
+    override fun toString() = name.toLowerCase()
+
 }
 
-fun styleSheet(init: StyleSheet.() -> Unit): StyleSheet {
-    val styleSheet = StyleSheet()
-    styleSheet.init()
-    return styleSheet
-}
 
-class StyleSheet {
+/**
+ * To define a specific StyleSheet for you dataviz, extend this 
+ * class and init css rules inside init function. 
+ */
+open class StyleSheet {
     
     val Serif = FontFamily.Type(FontFamilyType.Serif)
     val SansSerif = FontFamily.Type(FontFamilyType.SansSerif)
@@ -29,11 +31,11 @@ class StyleSheet {
         }
     }
 
-
     fun text(init: CssText.() -> Unit) {
         val textRule = CssText().apply(init)
         rules.add(textRule)
     }
+    
     fun render(): String = rules.joinToString("\n") { it.render()}
 }
 
@@ -41,6 +43,7 @@ class StyleSheet {
 expect class CssText() : CssRule {
     var fontSize: CssSize? 
     var fontFamily: FontFamily? 
+    var fontStyle: FontStyle? 
     
     override fun render():String
 }
